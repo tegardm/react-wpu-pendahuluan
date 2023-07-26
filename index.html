@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar ReactJS</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function Header ({author}) {
+            return (<h1>Belajar React Bareng Pak {author ? author : "WPU"} 🚀</h1>)
+        }
+
+       
+
+        function HomePage () {
+            const [likes,setLikes] = React.useState(0);
+            function ButtonCounter () {
+                return (<><p>Tekan : {likes ? likes : "0"}</p></>)
+               }   
+
+               const [score,setScore] = React.useState(0);
+               const [disable,setDisable] = React.useState(false);
+            function TextScore() {
+                return (<><p className='inline-element'>  {score ? score : '0'} </p></>)
+            }
+
+            limit();
+
+            function limit () {
+                if (score > 10) {
+                    setDisable(true);
+                    setScore("Selesai !");
+                } else if (score < 0) {
+                    setDisable(true);
+                    setScore("Selesai !");
+                }
+            }
+
+               function addCount () {
+                setScore(score +1);
+                
+            }
+            function minCount () {
+                setScore(score-1);
+                
+            }
+
+            function resetCount () {
+                setScore(0);
+                setDisable(false);
+            }
+
+            function BtnCounter ({type}) {
+                if (type == '-') {
+                    return (<><button disabled={disable} onClick={minCount} className='inline-button' >{type}</button></>)
+                } 
+                
+                if (type == '+' ) {
+                    return (<><button disabled={disable} onClick={addCount} className='inline-button' >{type}</button></>)
+                
+                    
+                }
+
+                if (type == 'Reset') {
+                        return (<><button disabled={!disable} onClick={resetCount} className='inline-element' >{type}</button></>)
+
+                    }
+                
+            }
+
+           
+            function addLikes () {
+                setLikes(likes + 1);
+            }
+            function decLikes () {
+                setLikes(likes - 1);
+            }
+
+           
+           
+           
+            const mahasiswa = ["Tegar","Kyko","Daniel"];
+                    return (<><Header author="Risky"/>
+                    <ul>
+                        {
+                            mahasiswa.map((mhs) => {
+                                return (<li key={mhs}>Nama Dia {mhs}</li>)
+                            })
+                        }
+                        </ul>
+                        <button onClick={addLikes}>Add Likes</button>
+                        <ButtonCounter/>
+                        <button onClick={decLikes}>Remove Likes</button>
+                        <h1>Batas Suci</h1>
+                       
+                        <BtnCounter onClick={addCount} type='+'/>
+                        <TextScore/>
+
+                        <BtnCounter onClick={minCount} type='-'/>
+                        <br/><br/>
+                        <BtnCounter onClick={resetCount} type='Reset'/>
+                        </>)
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+      root.render(<><HomePage/>
+                <p onClick={e => {alert("Woy")}}>Belajar React Mudah Dan Menyenangkan</p></>);
+    </script>
+</body>
+<style>
+    .inline-button {
+  display: inline-block;
+}
+
+.inline-element {
+  display: inline;
+}
+</style>
+
+</html>
